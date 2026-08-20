@@ -30,8 +30,8 @@ export function scoreGuess(secret: Code, guess: Code): Feedback {
   for (let i = 0; i < secret.length; i++) {
     if (secret[i] === guess[i]) exact++;
     else {
-      secretRest.push(secret[i]);
-      guessRest.push(guess[i]);
+      secretRest.push(secret[i]!);
+      guessRest.push(guess[i]!);
     }
   }
 
@@ -51,7 +51,7 @@ export function scoreGuess(secret: Code, guess: Code): Feedback {
 export function randomCode(): Code {
   return Array.from(
     { length: CODE_LENGTH },
-    () => PEG_COLORS[Math.floor(Math.random() * PEG_COLORS.length)],
+    () => PEG_COLORS[Math.floor(Math.random() * PEG_COLORS.length)]!,
   );
 }
 

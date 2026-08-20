@@ -27,7 +27,7 @@ export class ConsistentSolver implements GuessGenerator {
       return ["white", "white", "blue", "blue"];
     }
     if (this.candidates.length === 0) return ["white", "blue", "green", "yellow"];
-    return this.candidates[Math.floor(Math.random() * this.candidates.length)];
+    return this.candidates[Math.floor(Math.random() * this.candidates.length)]!;
   }
 
   get remaining(): number {

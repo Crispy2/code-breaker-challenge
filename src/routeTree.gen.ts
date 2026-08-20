@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CodebreakerRouteImport } from './routes/codebreaker'
+import { Route as CodemakerRouteImport } from './routes/codemaker'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CodebreakerRoute = CodebreakerRouteImport.update({
+  id: '/codebreaker',
+  path: '/codebreaker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CodemakerRoute = CodemakerRouteImport.update({
+  id: '/codemaker',
+  path: '/codemaker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/codebreaker': typeof CodebreakerRoute
+  '/codemaker': typeof CodemakerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/codebreaker': typeof CodebreakerRoute
+  '/codemaker': typeof CodemakerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/codebreaker': typeof CodebreakerRoute
+  '/codemaker': typeof CodemakerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/codebreaker' | '/codemaker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/codebreaker' | '/codemaker'
+  id: '__root__' | '/' | '/codebreaker' | '/codemaker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CodebreakerRoute: typeof CodebreakerRoute
+  CodemakerRoute: typeof CodemakerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/codebreaker': {
+      id: '/codebreaker'
+      path: '/codebreaker'
+      fullPath: '/codebreaker'
+      preLoaderRoute: typeof CodebreakerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/codemaker': {
+      id: '/codemaker'
+      path: '/codemaker'
+      fullPath: '/codemaker'
+      preLoaderRoute: typeof CodemakerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CodebreakerRoute: CodebreakerRoute,
+  CodemakerRoute: CodemakerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

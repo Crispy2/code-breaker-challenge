@@ -12,10 +12,10 @@ export function GuessRow({
 }: {
   index: number;
   code: (Code[number] | null)[];
-  feedback?: Feedback;
-  active?: boolean;
-  onSlotClick?: (i: number) => void;
-  activeSlot?: number | null;
+  feedback?: Feedback | undefined;
+  active?: boolean | undefined;
+  onSlotClick?: ((i: number) => void) | undefined;
+  activeSlot?: number | null | undefined;
 }) {
   return (
     <div

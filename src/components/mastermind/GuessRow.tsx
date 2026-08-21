@@ -34,7 +34,7 @@ export function GuessRow({
               onClick={() => onSlotClick(i)}
               aria-label={`Slot ${i + 1}`}
               className={cn(
-                "rounded-full transition-transform hover:scale-105",
+                "inline-flex size-9 items-center justify-center rounded-full p-0 transition-transform hover:scale-105",
                 activeSlot === i && "ring-2 ring-primary ring-offset-2 ring-offset-board",
               )}
             >

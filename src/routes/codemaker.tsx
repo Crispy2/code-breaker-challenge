@@ -124,6 +124,16 @@ function Codemaker() {
         </div>
       </section>
 
+      <section className="rounded-2xl bg-board p-4 text-sm text-muted-foreground">
+        <h3 className="mb-2 font-semibold text-foreground">Feedback key</h3>
+        <p>
+          <span className="mr-2 inline-block size-3 rounded-full bg-foreground align-middle" /> right
+          colour, right position ·{" "}
+          <span className="mx-2 inline-block size-3 rounded-full ring-2 ring-inset ring-foreground align-middle" />{" "}
+          right colour, wrong position
+        </p>
+      </section>
+
       {phase === "setup" && (
         <div className="mt-6 space-y-4">
           <ColorPalette onPick={pick} />

@@ -33,6 +33,7 @@ jobs:
         run: bun run build:static
         env:
           STATIC_BUILD: "1"
+          BASE_PATH: "/code-breaker-challenge/"
 
       - name: Prepare Pages output
         run: |

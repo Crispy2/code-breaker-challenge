@@ -6,16 +6,24 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig({
-  // Inside Lovable the preset is pinned by LOVABLE_NITRO_PRESET; outside (e.g. GitHub
-  // Actions) we emit a fully static site so it can be served from GitHub Pages.
-  nitro: { preset: "static" },
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-    // Pre-render every page to static HTML and ship a client-side-routed fallback.
-    prerender: { enabled: true, crawlLinks: true },
-    spa: { enabled: true },
-  },
-});
+// STATIC_BUILD=1 produces a fully static site (GitHub Pages); otherwise the
+// normal Lovable/Cloudflare server build is used.
+const isStatic = process.env["STATIC_BUILD"] === "1";
+
+export default defineConfig(
+  isStatic
+    ? {
+        nitro: { preset: "static" },
+        tanstackStart: {
+          prerender: { enabled: true, crawlLinks: true },
+          spa: { enabled: true },
+        },
+      }
+    : {
+        tanstackStart: {
+          // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+          // nitro/vite builds from this
+          server: { entry: "server" },
+        },
+      },
+);

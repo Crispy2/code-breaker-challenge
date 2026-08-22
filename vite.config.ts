@@ -9,11 +9,14 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 // STATIC_BUILD=1 produces a fully static site (GitHub Pages); otherwise the
 // normal Lovable/Cloudflare server build is used.
 const isStatic = process.env["STATIC_BUILD"] === "1";
+// GitHub Pages project sites are served from /<repo>/; override with BASE_PATH if needed.
+const basePath = isStatic ? (process.env["BASE_PATH"] ?? "/code-breaker-challenge/") : "/";
 
 export default defineConfig(
   isStatic
     ? {
         nitro: false,
+        vite: { base: basePath },
         tanstackStart: {
           prerender: { enabled: true, crawlLinks: true },
         },

@@ -6,10 +6,23 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig({
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-  },
-});
+// STATIC_BUILD=1 produces a fully static site (GitHub Pages); otherwise the
+// normal Lovable/Cloudflare server build is used.
+const isStatic = process.env["STATIC_BUILD"] === "1";
+
+export default defineConfig(
+  isStatic
+    ? {
+        nitro: false,
+        tanstackStart: {
+          prerender: { enabled: true, crawlLinks: true },
+        },
+      }
+    : {
+        tanstackStart: {
+          // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+          // nitro/vite builds from this
+          server: { entry: "server" },
+        },
+      },
+);

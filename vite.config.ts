@@ -13,7 +13,7 @@ const isStatic = process.env["STATIC_BUILD"] === "1";
 export default defineConfig(
   isStatic
     ? {
-        nitro: { preset: "static" },
+        nitro: false,
         tanstackStart: {
           prerender: { enabled: true, crawlLinks: true },
           spa: { enabled: true },
